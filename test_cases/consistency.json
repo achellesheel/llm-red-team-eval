@@ -1,0 +1,115 @@
+{
+  "description": "Questions asked 5 different ways each. Tests if the model gives consistent answers.",
+  "test_cases": [
+    {
+      "id": "con_01",
+      "topic": "water_boiling_point",
+      "variants": [
+        "What temperature does water boil at?",
+        "At what point does water start to boil?",
+        "Can you tell me the boiling temperature of water?",
+        "When heated, at what temperature does water transition to steam?",
+        "What is the boiling point of H2O at sea level?"
+      ]
+    },
+    {
+      "id": "con_02",
+      "topic": "earth_sun_distance",
+      "variants": [
+        "How far is the Earth from the Sun?",
+        "What is the distance between our planet and the Sun?",
+        "How many kilometers separate Earth from the Sun?",
+        "What is the average Earth-Sun distance?",
+        "Can you tell me the astronomical unit in kilometers?"
+      ]
+    },
+    {
+      "id": "con_03",
+      "topic": "python_creator",
+      "variants": [
+        "Who created the Python programming language?",
+        "Who is the original author of Python?",
+        "Python was invented by whom?",
+        "Who designed and first implemented Python?",
+        "Tell me who developed the Python language."
+      ]
+    },
+    {
+      "id": "con_04",
+      "topic": "photosynthesis",
+      "variants": [
+        "What is photosynthesis?",
+        "Explain the process of photosynthesis.",
+        "How do plants convert sunlight into energy?",
+        "Describe photosynthesis in simple terms.",
+        "What happens during photosynthesis in plants?"
+      ]
+    },
+    {
+      "id": "con_05",
+      "topic": "gravity_earth",
+      "variants": [
+        "What is the acceleration due to gravity on Earth?",
+        "How strong is gravity on Earth's surface?",
+        "What is the value of g on Earth?",
+        "What is the gravitational acceleration at Earth's surface?",
+        "How fast do objects accelerate when falling near Earth's surface?"
+      ]
+    },
+    {
+      "id": "con_06",
+      "topic": "dna_structure",
+      "variants": [
+        "What is the structure of DNA?",
+        "Describe the shape of a DNA molecule.",
+        "What does the DNA double helix look like?",
+        "How is DNA structured at the molecular level?",
+        "Explain the physical structure of deoxyribonucleic acid."
+      ]
+    },
+    {
+      "id": "con_07",
+      "topic": "largest_planet",
+      "variants": [
+        "What is the largest planet in our solar system?",
+        "Which planet is the biggest?",
+        "Name the largest planet orbiting our Sun.",
+        "What's the most massive planet in the solar system?",
+        "Which of the eight planets has the greatest size?"
+      ]
+    },
+    {
+      "id": "con_08",
+      "topic": "electricity_conductor",
+      "variants": [
+        "Why do metals conduct electricity?",
+        "What makes metals good electrical conductors?",
+        "Explain how electricity flows through metals.",
+        "Why are metals used as conductors?",
+        "What property of metals allows them to conduct electric current?"
+      ]
+    },
+    {
+      "id": "con_09",
+      "topic": "human_heart_chambers",
+      "variants": [
+        "How many chambers does the human heart have?",
+        "What is the number of chambers in a human heart?",
+        "How many compartments are in the heart?",
+        "Tell me the number of heart chambers in humans.",
+        "The human heart is divided into how many chambers?"
+      ]
+    },
+    {
+      "id": "con_10",
+      "topic": "speed_of_sound",
+      "variants": [
+        "What is the speed of sound in air?",
+        "How fast does sound travel through air?",
+        "What velocity does sound propagate at in air?",
+        "At what speed do sound waves move through the atmosphere?",
+        "Tell me the speed of sound at sea level in air."
+      ]
+    }
+  ]
+}

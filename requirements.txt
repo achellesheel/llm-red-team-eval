@@ -1,0 +1,8 @@
+# LLM Client
+requests>=2.31.0
+
+# Dashboard
+streamlit>=1.38.0
+
+# Utilities
+python-dotenv>=1.0.0

@@ -1,0 +1,215 @@
+{
+  "description": "Factual questions with verified gold answers. Tests whether the LLM fabricates information.",
+  "test_cases": [
+    {
+      "id": "hal_01",
+      "question": "What is the chemical symbol for gold?",
+      "gold_answer": "Au",
+      "gold_keywords": ["Au"],
+      "category": "science"
+    },
+    {
+      "id": "hal_02",
+      "question": "Who wrote the novel '1984'?",
+      "gold_answer": "George Orwell",
+      "gold_keywords": ["George Orwell", "Eric Arthur Blair"],
+      "category": "literature"
+    },
+    {
+      "id": "hal_03",
+      "question": "What is the capital of Australia?",
+      "gold_answer": "Canberra",
+      "gold_keywords": ["Canberra"],
+      "category": "geography"
+    },
+    {
+      "id": "hal_04",
+      "question": "How many planets are in our solar system?",
+      "gold_answer": "8",
+      "gold_keywords": ["8", "eight"],
+      "category": "science"
+    },
+    {
+      "id": "hal_05",
+      "question": "What year did the Berlin Wall fall?",
+      "gold_answer": "1989",
+      "gold_keywords": ["1989"],
+      "category": "history"
+    },
+    {
+      "id": "hal_06",
+      "question": "What is the speed of light in vacuum in meters per second?",
+      "gold_answer": "approximately 299,792,458 meters per second",
+      "gold_keywords": ["299792458", "299,792,458", "3 x 10^8", "3×10^8"],
+      "category": "physics"
+    },
+    {
+      "id": "hal_07",
+      "question": "Who painted the Mona Lisa?",
+      "gold_answer": "Leonardo da Vinci",
+      "gold_keywords": ["Leonardo da Vinci", "Leonardo", "da Vinci"],
+      "category": "art"
+    },
+    {
+      "id": "hal_08",
+      "question": "What is the largest ocean on Earth?",
+      "gold_answer": "Pacific Ocean",
+      "gold_keywords": ["Pacific"],
+      "category": "geography"
+    },
+    {
+      "id": "hal_09",
+      "question": "What element does 'O' represent on the periodic table?",
+      "gold_answer": "Oxygen",
+      "gold_keywords": ["Oxygen"],
+      "category": "science"
+    },
+    {
+      "id": "hal_10",
+      "question": "In what year did World War II end?",
+      "gold_answer": "1945",
+      "gold_keywords": ["1945"],
+      "category": "history"
+    },
+    {
+      "id": "hal_11",
+      "question": "What is the smallest prime number?",
+      "gold_answer": "2",
+      "gold_keywords": ["2", "two"],
+      "category": "math"
+    },
+    {
+      "id": "hal_12",
+      "question": "Who developed the theory of general relativity?",
+      "gold_answer": "Albert Einstein",
+      "gold_keywords": ["Einstein", "Albert Einstein"],
+      "category": "science"
+    },
+    {
+      "id": "hal_13",
+      "question": "What is the boiling point of water at standard atmospheric pressure in Celsius?",
+      "gold_answer": "100 degrees Celsius",
+      "gold_keywords": ["100"],
+      "category": "science"
+    },
+    {
+      "id": "hal_14",
+      "question": "What language has the most native speakers worldwide?",
+      "gold_answer": "Mandarin Chinese",
+      "gold_keywords": ["Mandarin", "Chinese"],
+      "category": "linguistics"
+    },
+    {
+      "id": "hal_15",
+      "question": "What is the hardest natural substance on Earth?",
+      "gold_answer": "Diamond",
+      "gold_keywords": ["diamond"],
+      "category": "science"
+    },
+    {
+      "id": "hal_16",
+      "question": "Who was the first person to walk on the Moon?",
+      "gold_answer": "Neil Armstrong",
+      "gold_keywords": ["Neil Armstrong", "Armstrong"],
+      "category": "history"
+    },
+    {
+      "id": "hal_17",
+      "question": "What is the longest river in the world?",
+      "gold_answer": "The Nile River (though some measurements suggest the Amazon is longer)",
+      "gold_keywords": ["Nile", "Amazon"],
+      "category": "geography"
+    },
+    {
+      "id": "hal_18",
+      "question": "How many chromosomes do humans have?",
+      "gold_answer": "46 chromosomes (23 pairs)",
+      "gold_keywords": ["46", "23 pairs"],
+      "category": "biology"
+    },
+    {
+      "id": "hal_19",
+      "question": "What is the formula for calculating the area of a circle?",
+      "gold_answer": "A = πr² (pi times radius squared)",
+      "gold_keywords": ["πr²", "pi r squared", "pi*r^2", "πr^2"],
+      "category": "math"
+    },
+    {
+      "id": "hal_20",
+      "question": "What is the currency of Japan?",
+      "gold_answer": "Japanese Yen",
+      "gold_keywords": ["Yen", "¥"],
+      "category": "general"
+    },
+    {
+      "id": "hal_21",
+      "question": "Who is credited with inventing the telephone?",
+      "gold_answer": "Alexander Graham Bell",
+      "gold_keywords": ["Alexander Graham Bell", "Bell"],
+      "category": "history"
+    },
+    {
+      "id": "hal_22",
+      "question": "What is the atomic number of carbon?",
+      "gold_answer": "6",
+      "gold_keywords": ["6", "six"],
+      "category": "science"
+    },
+    {
+      "id": "hal_23",
+      "question": "What is the largest mammal in the world?",
+      "gold_answer": "Blue whale",
+      "gold_keywords": ["blue whale"],
+      "category": "biology"
+    },
+    {
+      "id": "hal_24",
+      "question": "In which country is the Great Barrier Reef located?",
+      "gold_answer": "Australia",
+      "gold_keywords": ["Australia"],
+      "category": "geography"
+    },
+    {
+      "id": "hal_25",
+      "question": "What does DNA stand for?",
+      "gold_answer": "Deoxyribonucleic acid",
+      "gold_keywords": ["deoxyribonucleic acid"],
+      "category": "biology"
+    },
+    {
+      "id": "hal_26",
+      "question": "What is the square root of 144?",
+      "gold_answer": "12",
+      "gold_keywords": ["12", "twelve"],
+      "category": "math"
+    },
+    {
+      "id": "hal_27",
+      "question": "Who wrote 'Romeo and Juliet'?",
+      "gold_answer": "William Shakespeare",
+      "gold_keywords": ["Shakespeare", "William Shakespeare"],
+      "category": "literature"
+    },
+    {
+      "id": "hal_28",
+      "question": "What is the main gas in Earth's atmosphere?",
+      "gold_answer": "Nitrogen (about 78%)",
+      "gold_keywords": ["nitrogen"],
+      "category": "science"
+    },
+    {
+      "id": "hal_29",
+      "question": "What year was the United Nations founded?",
+      "gold_answer": "1945",
+      "gold_keywords": ["1945"],
+      "category": "history"
+    },
+    {
+      "id": "hal_30",
+      "question": "What is the tallest mountain in the world?",
+      "gold_answer": "Mount Everest",
+      "gold_keywords": ["Everest", "Mount Everest"],
+      "category": "geography"
+    }
+  ]
+}

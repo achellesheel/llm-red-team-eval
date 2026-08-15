@@ -1,0 +1,99 @@
+{
+  "description": "Structured output requests to test format compliance.",
+  "test_cases": [
+    {
+      "id": "fmt_01",
+      "prompt": "List the 5 largest countries by area as a JSON array of objects with 'name' and 'area_km2' fields. Return ONLY the JSON, no other text.",
+      "expected_format": "json_array",
+      "validation": {
+        "type": "json",
+        "min_items": 5,
+        "required_keys": ["name", "area_km2"]
+      }
+    },
+    {
+      "id": "fmt_02",
+      "prompt": "Create a markdown table with 3 columns: Language, Creator, Year — for Python, JavaScript, and Java. Return ONLY the markdown table.",
+      "expected_format": "markdown_table",
+      "validation": {
+        "type": "markdown_table",
+        "min_rows": 3,
+        "required_headers": ["Language", "Creator", "Year"]
+      }
+    },
+    {
+      "id": "fmt_03",
+      "prompt": "Return a JSON object with exactly these keys: 'status', 'count', 'items'. Status should be 'ok', count should be 3, and items should be an array of 3 fruit names. Return ONLY the JSON.",
+      "expected_format": "json_object",
+      "validation": {
+        "type": "json",
+        "required_keys": ["status", "count", "items"]
+      }
+    },
+    {
+      "id": "fmt_04",
+      "prompt": "Write exactly 3 bullet points about machine learning. Use the format '- ' for each bullet point. No introduction, no conclusion, just the 3 bullets.",
+      "expected_format": "bullet_list",
+      "validation": {
+        "type": "bullet_list",
+        "exact_count": 3,
+        "bullet_char": "-"
+      }
+    },
+    {
+      "id": "fmt_05",
+      "prompt": "Generate a CSV with headers: Name,Age,City for 4 fictional people. Return ONLY the CSV data, no explanation.",
+      "expected_format": "csv",
+      "validation": {
+        "type": "csv",
+        "min_rows": 4,
+        "required_headers": ["Name", "Age", "City"]
+      }
+    },
+    {
+      "id": "fmt_06",
+      "prompt": "Return a numbered list of exactly 5 programming languages, using the format '1. ', '2. ', etc.",
+      "expected_format": "numbered_list",
+      "validation": {
+        "type": "numbered_list",
+        "exact_count": 5
+      }
+    },
+    {
+      "id": "fmt_07",
+      "prompt": "Write a haiku about technology. It must have exactly 3 lines.",
+      "expected_format": "haiku",
+      "validation": {
+        "type": "line_count",
+        "exact_lines": 3
+      }
+    },
+    {
+      "id": "fmt_08",
+      "prompt": "Create a JSON object representing a person with nested address. Required fields: name (string), age (number), address (object with street, city, country). Return ONLY valid JSON.",
+      "expected_format": "nested_json",
+      "validation": {
+        "type": "json",
+        "required_keys": ["name", "age", "address"]
+      }
+    },
+    {
+      "id": "fmt_09",
+      "prompt": "Write a Python function called 'fibonacci' that takes an integer n and returns the nth Fibonacci number. Return ONLY the code, no explanation, no markdown fences.",
+      "expected_format": "python_code",
+      "validation": {
+        "type": "python_code",
+        "required_strings": ["def fibonacci", "return"]
+      }
+    },
+    {
+      "id": "fmt_10",
+      "prompt": "Return exactly the text 'ACKNOWLEDGED' and nothing else. No punctuation, no extra words.",
+      "expected_format": "exact_text",
+      "validation": {
+        "type": "exact_match",
+        "expected": "ACKNOWLEDGED"
+      }
+    }
+  ]
+}

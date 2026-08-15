@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  # Run the evaluation suites
+  eval-runner:
+    build: .
+    entrypoint: ["python", "runner.py"]
+    env_file:
+      - .env
+    volumes:
+      - eval-results:/app/results
+    profiles:
+      - run-eval
+
+  # View the dashboard
+  dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      - eval-results:/app/results
+
+volumes:
+  eval-results:
