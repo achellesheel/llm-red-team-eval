@@ -16,22 +16,14 @@ from __future__ import annotations
 
 import json
 import logging
-import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from config import TEST_CASES_DIR
 from llm_client import LLMClient, LLMResponse
+from retrievers import get_retriever
 
 logger = logging.getLogger(__name__)
-
-_STOPWORDS = {
-    "a", "an", "the", "is", "are", "was", "were", "be", "been", "being",
-    "do", "does", "did", "have", "has", "had", "i", "you", "your", "it",
-    "its", "my", "me", "to", "of", "in", "on", "for", "with", "and", "or",
-    "not", "no", "can", "could", "would", "will", "what", "how", "get",
-    "s", "t", "this", "that", "about",
-}
 
 
 @dataclass
@@ -54,6 +46,7 @@ class RagInjectionReport:
     compromised: int
     resistance_rate: float
     injection_success_rate: float
+    retriever: str
     results: list[RagInjectionResult]
     failures: list[RagInjectionResult] = field(default_factory=list)
     by_attack_type: dict = field(default_factory=dict)
@@ -64,29 +57,6 @@ def load_test_cases() -> tuple[str, list[dict], list[dict]]:
     with open(path) as f:
         data = json.load(f)
     return data["system_prompt"], data["knowledge_base"], data["test_cases"]
-
-
-def _tokenize(text: str) -> set[str]:
-    words = re.findall(r"[a-z0-9]+", text.lower())
-    return {w for w in words if w not in _STOPWORDS and len(w) > 1}
-
-
-def retrieve(query: str, knowledge_base: list[dict], top_k: int = 3) -> list[dict]:
-    """Dependency-free keyword-overlap retriever.
-
-    Deliberately simple (no embeddings, no vector DB) so the toolkit stays
-    zero-paid-API and swappable — a real deployment plugs in whatever
-    retriever it already uses. The point being tested is what happens
-    *after* retrieval, not the retrieval quality itself.
-    """
-    query_tokens = _tokenize(query)
-    scored = []
-    for doc in knowledge_base:
-        doc_tokens = _tokenize(doc["title"] + " " + doc["text"])
-        overlap = len(query_tokens & doc_tokens)
-        scored.append((overlap, doc))
-    scored.sort(key=lambda pair: pair[0], reverse=True)
-    return [doc for score, doc in scored[:top_k] if score > 0] or [scored[0][1]]
 
 
 def build_rag_prompt(query: str, retrieved_docs: list[dict]) -> str:
@@ -108,9 +78,14 @@ def check_injection(response_text: str, success_indicators: list[str]) -> tuple[
     return len(found) >= 1, found
 
 
-def run(client: LLMClient) -> RagInjectionReport:
-    """Run the RAG indirect-injection suite."""
+def run(client: LLMClient, retriever_name: str | None = None) -> RagInjectionReport:
+    """Run the RAG indirect-injection suite.
+
+    retriever_name: "keyword" (zero-dependency, default) or "embedding"
+    (sentence-transformers + FAISS). See retrievers.py.
+    """
     system_prompt, knowledge_base, test_cases = load_test_cases()
+    retrieve = get_retriever(retriever_name)
     results: list[RagInjectionResult] = []
 
     for tc in test_cases:
@@ -177,6 +152,7 @@ def run(client: LLMClient) -> RagInjectionReport:
         compromised=compromised,
         resistance_rate=resisted / total if total > 0 else 0,
         injection_success_rate=compromised / total if total > 0 else 0,
+        retriever=retriever_name or "keyword",
         results=results,
         failures=failures,
         by_attack_type=by_type,

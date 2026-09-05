@@ -1,0 +1,6 @@
+# Optional: only needed for --rag-retriever embedding
+# (real semantic retrieval for the rag_injection suite, via
+# sentence-transformers + FAISS, instead of the zero-dependency
+# keyword retriever that's used by default).
+sentence-transformers>=3.0.0
+faiss-cpu>=1.8.0

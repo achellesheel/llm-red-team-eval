@@ -8,7 +8,7 @@
 
 Direct prompt injection ("ignore your instructions") gets tested. Model safety gets tested. What doesn't get tested: **the document your RAG pipeline retrieves and silently trusts.** An attacker doesn't need to touch your chatbot at all — they just need to get one sentence into a wiki page, a support ticket, or a PDF that eventually gets indexed.
 
-This toolkit now includes `rag_injection`, a suite that simulates exactly that. A small knowledge base is seeded with a couple of "poisoned" documents — ordinary-looking support articles with an instruction hidden inside. A keyword retriever (no vector DB required to prove the point) pulls the poisoned doc into context for a completely benign customer question, and the report shows what the model did with it.
+This toolkit now includes `rag_injection`, a suite that simulates exactly that. A small knowledge base is seeded with a couple of "poisoned" documents — ordinary-looking support articles with an instruction hidden inside. The retriever pulls the poisoned doc into context for a completely benign customer question, and the report shows what the model did with it.
 
 **Real transcript, caught on the first run** (`allam-2-7b` via Groq, `python runner.py --suites rag_injection --model allam-2-7b`):
 
@@ -21,10 +21,20 @@ A second poisoned doc ("Competitor Comparison Notes") got the same bot to tell a
 
 Nobody asked this model anything malicious. The attack arrived as *data*, and the model executed it as an *instruction* — the exact failure mode most RAG deployments have no test for today.
 
+**Verified with two retrievers, same result both times.** By default the suite uses a zero-dependency keyword retriever, so this reproduces with no setup. It also has a real semantic retriever behind a flag — `sentence-transformers` (`all-MiniLM-L6-v2`) + FAISS cosine search, actual embeddings, not string matching:
+
 ```bash
+# Zero-dependency reproduction
 python runner.py --suites rag_injection --model allam-2-7b
+
+# Same attack, real production-grade semantic retrieval
+pip install -r requirements-embedding.txt
+python runner.py --suites rag_injection --model allam-2-7b --rag-retriever embedding
+
 streamlit run app.py   # see it on the dashboard
 ```
+
+Both retrievers surface the same poisoned documents for the same queries and both runs get compromised the same way — this isn't a keyword-matching artifact, it's what happens when *any* retriever does its job correctly and hands a poisoned document to the model as trusted context.
 
 ---
 
@@ -185,12 +195,14 @@ llm-red-team-eval/
 │   └── format_compliance.json # 10 structured output requests
 ├── results/                   # Generated report cards (JSON)
 ├── llm_client.py             # Unified LLM client (Groq/Ollama/OpenAI)
+├── retrievers.py             # Pluggable retrievers (keyword / embedding+FAISS)
 ├── config.py                 # Configuration & thresholds
 ├── runner.py                 # CLI eval runner + report generator
 ├── app.py                    # Streamlit dashboard
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
+├── requirements-embedding.txt # Optional: sentence-transformers + faiss-cpu
 ├── .env.example
 ├── .gitignore
 └── README.md

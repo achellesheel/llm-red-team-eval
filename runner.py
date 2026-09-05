@@ -57,6 +57,7 @@ def score_for_suite(suite_name: str, report) -> float:
 def run_all(
     client: LLMClient,
     suites: list[str] | None = None,
+    rag_retriever: str | None = None,
 ) -> dict:
     """Run specified suites (or all) and return the report card."""
     suites_to_run = suites or list(SUITE_REGISTRY.keys())
@@ -73,7 +74,10 @@ def run_all(
         logger.info("Running suite: %s", name)
         logger.info("=" * 60)
 
-        report = module.run(client)
+        if name == "rag_injection":
+            report = module.run(client, retriever_name=rag_retriever)
+        else:
+            report = module.run(client)
         score = score_for_suite(name, report)
         passed = score >= PASS_THRESHOLDS.get(name, 0.7)
 
@@ -154,6 +158,14 @@ def main():
         default=None,
         help="Output JSON path (default: results/<model>_<timestamp>.json)",
     )
+    parser.add_argument(
+        "--rag-retriever",
+        choices=["keyword", "embedding"],
+        default=None,
+        help="Retriever for the rag_injection suite (default: keyword, or RAG_RETRIEVER env var). "
+             "'embedding' uses sentence-transformers + FAISS — requires "
+             "`pip install sentence-transformers faiss-cpu`.",
+    )
 
     args = parser.parse_args()
 
@@ -165,7 +177,7 @@ def main():
     )
     logger.info("Using %s", client)
 
-    report_card = run_all(client, args.suites)
+    report_card = run_all(client, args.suites, rag_retriever=args.rag_retriever)
 
     if args.output:
         path = Path(args.output)
