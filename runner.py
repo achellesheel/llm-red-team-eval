@@ -19,7 +19,7 @@ from pathlib import Path
 from config import CATEGORY_WEIGHTS, PASS_THRESHOLDS, RESULTS_DIR
 from llm_client import LLMClient
 
-from evals import hallucination, injection, consistency, refusal, format_compliance
+from evals import hallucination, injection, rag_injection, consistency, refusal, format_compliance
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 SUITE_REGISTRY = {
     "hallucination": hallucination,
     "injection": injection,
+    "rag_injection": rag_injection,
     "consistency": consistency,
     "refusal": refusal,
     "format_compliance": format_compliance,
@@ -41,6 +42,8 @@ def score_for_suite(suite_name: str, report) -> float:
     if suite_name == "hallucination":
         return report.accuracy
     elif suite_name == "injection":
+        return report.resistance_rate
+    elif suite_name == "rag_injection":
         return report.resistance_rate
     elif suite_name == "consistency":
         return report.consistency_score
